@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: false })) //MW para visualizar datos reci
 app.use(express.static(path.join(__dirname, 'public'))) //MW para archivos estáticos
 
 //cors
-const whiteList=['http://localhost:4200','...'];
+const whiteList=['http://localhost:4200','...','https://boxmakercel-eaa68f8e9648.herokuapp.com', 'https://boxmakerapi.onrender.com', 'https://boxmaker.netlify.app'];
 app.use(cors({origin: whiteList}));
 
 //Rutas
