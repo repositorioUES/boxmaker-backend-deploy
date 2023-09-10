@@ -103,7 +103,7 @@ async function readExcel(req, res){
     }   
 
     if(estado == 0){
-        res.status(500).send({msg:"Ha ocurrido un error durante el guadaro"})
+        res.status(500).send({msg:"Ha ocurrido un error durante el guardado"})
     }else if (estado == 1){
         res.status(200).send({msg:"Habían Comprobantes repetidos, sólo se agregaron " + agregados.toString()})
     }else{

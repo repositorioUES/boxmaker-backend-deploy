@@ -146,7 +146,7 @@ async function saveTempContent(req, res) {
                     res.status(400).send({ msg: "No existe el guardado temporal"})
                 }
             } else {
-                res.status(400).send({ msg: "El comprobante YA ESTÁ GUARDADO EEN AL BASE DE DATOS, EN LA CAJA: " + cont.caja})
+                res.status(400).send({ msg: "El comprobante YA ESTÁ GUARDADO EN AL BASE DE DATOS, EN LA CAJA: " + cont.caja})
             }
         }
     } catch (err) {

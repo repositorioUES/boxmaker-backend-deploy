@@ -387,7 +387,7 @@ async function generateExcel(req, res){
     const contenidos = await Contenido.find({caja: codigo})
     
     if(!caja){
-        res.status(400).send({msg: "No se he encontrado la caja: " + codigo})
+        res.status(400).send({msg: "No se ha encontrado la caja: " + codigo})
     }else{
         for (let i = 0; i < contenidos.length; i++) {
             const row = sheet.getRow(i + 1)
@@ -469,7 +469,7 @@ async function readExcel(req, res){
     }   
 
     if(estado == 0){
-        res.status(500).send({msg:"Ha ocurrido un error durante el guadaro del contenido de la caja"})
+        res.status(500).send({msg:"Ha ocurrido un error durante el guardado del contenido de la caja"})
     }else if (estado == 1){
         res.status(200).send({msg:"Habían Comprobantes repetidos, sólo se agregaron " + agregados.toString() + ". Comprobantes que se intentarón agregar y que no existen: " + noExisten.toString()})
     }else{
