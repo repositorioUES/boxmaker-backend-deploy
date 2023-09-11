@@ -146,7 +146,7 @@ async function saveTempContent(req, res) {
                     res.status(400).send({ msg: "No existe el guardado temporal"})
                 }
             } else {
-                res.status(400).send({ msg: "El comprobante YA ESTÁ GUARDADO EN AL BASE DE DATOS, EN LA CAJA: " + cont.caja})
+                res.status(400).send({ msg: "El comprobante YA ESTÁ GUARDADO EN LA BASE DE DATOS, EN LA CAJA: " + cont.caja})
             }
         }
     } catch (err) {
@@ -157,8 +157,13 @@ async function saveTempContent(req, res) {
 //==================================================================================================================
 // SABER SI SE PUEDE AGREGAR EL COMPROBANTE, SOLO SI NO ESTÁ YA AGREGADO
 function canAdd(data, tipo, clave, fecha, correlativo) {
+    console.log('data');
+    console.log(data);
     for (let i = 0; i < data.length; i++) {
+        console.log(tipo + ' ' + clave + ' ' + fecha + ' ' + correlativo);
+
         if (tipo == data[i].tipo && clave == data[i].clave && fecha == data[i].fecha && correlativo == data[i].correlativo) {
+            console.log('este es');
             return {bool: false, i}
         }
     }
@@ -177,12 +182,12 @@ async function saveQuedan(req, res) {
         if (fs.existsSync(filePath)) {
             const savedData = fs.readFileSync(filePath, "utf8")
             const savedData_json = JSON.parse(savedData)
-
             let agregados = 0 // Cantidad de comprobantes que se agregaron
             let existentes = 0 // Cantidad de comprobantes que se quieren agregar PERO ya estan en otra caja
             for( let i = 0; i < data.comprobantes.length; i++) {
                 const { tipo, clave, fecha, correlativo } = data.comprobantes[i]
                 let add = canAdd(savedData_json, tipo, clave, fecha.substring(0,10), correlativo).bool // Verificar si el comp no esta en el JSON
+                console.log(add);
                 const toAdd = {
                     tipo,
                     clave,
@@ -242,7 +247,7 @@ async function saveContent(req, res) {
                     caja: param.codigo,
                     tipo: json[i].tipo,
                     clave: json[i].clave,
-                    fecha: json[i].fecha,
+                    fecha: json[i].fecha.substring(0, 10),
                     correlativo: json[i].correlativo
                 })
 
@@ -251,7 +256,7 @@ async function saveContent(req, res) {
 
                 if (!cont) {
                     await newCont.save()
-                    guardados.push(newCont)
+                    guardados.push(json[i])
                 }
             }
 
