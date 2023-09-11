@@ -182,7 +182,7 @@ async function saveQuedan(req, res) {
             let existentes = 0 // Cantidad de comprobantes que se quieren agregar PERO ya estan en otra caja
             for( let i = 0; i < data.comprobantes.length; i++) {
                 const { tipo, clave, fecha, correlativo } = data.comprobantes[i]
-                let add = canAdd(savedData_json, tipo, clave, fecha, correlativo).bool // Verificar si el comp no esta en el JSON
+                let add = canAdd(savedData_json, tipo, clave, fecha.substring(0,10), correlativo).bool // Verificar si el comp no esta en el JSON
                 const toAdd = {
                     tipo,
                     clave,
@@ -190,7 +190,7 @@ async function saveQuedan(req, res) {
                     correlativo
                 }
 
-                const filter = { "tipo": { $regex: tipo, $options:'i' }, "clave": { $regex: clave, $options:'i' }, "fecha": fecha, "correlativo": correlativo }
+                const filter = { "tipo": { $regex: tipo, $options:'i' }, "clave": { $regex: clave, $options:'i' }, "fecha": fecha.substring(0,10), "correlativo": correlativo }
                 const cont = await Contenido.findOne(filter)
 
                 if (!cont) {
