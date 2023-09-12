@@ -152,7 +152,7 @@ const profile = async (req, res) => {
                 const today = new Date() // fecha de hoy
                 
                 //restamos 5 días para comenzar a avisar
-                let fiveDaysBefore = new Date(userData.passCaducidad.getFullYear(), userData.passCaducidad.getMonth(), (userData.passCaducidad.getDate() - 19)) 
+                let fiveDaysBefore = new Date(userData.passCaducidad.getFullYear(), userData.passCaducidad.getMonth(), (userData.passCaducidad.getDate() - 7)) 
                 const daysLeft = Math.round((userData.passCaducidad - today) / 86400000)
 
                 if(today >= fiveDaysBefore){
