@@ -158,6 +158,11 @@ const profile = async (req, res) => {
                 if(today >= fiveDaysBefore){
                     vence = "Su contraseña caducará el: " + formatDate(userData.passCaducidad)
                 }
+                
+                let firstLogin = false
+                if (bcrypt.compareSync('archivo', userData.password)) {
+                    firstLogin = true
+                }
 
                 const currUser = {
                     primerNombre: userData.primerNombre,
@@ -179,7 +184,7 @@ const profile = async (req, res) => {
                     fecha: vence
                 }
 
-                res.status(200).send({ userData: currUser, warning: warnings})
+                res.status(200).send({ userData: currUser, warning: warnings, firstLogin})
             }
         }   
     })
